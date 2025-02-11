@@ -1,45 +1,45 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
-class DiceRoller extends StatefulWidget{
+class DiceRoller extends StatefulWidget {
   const DiceRoller({super.key});
   @override
   State<DiceRoller> createState() {
     return _DiceRollerState();
   }
-  
 }
 
-class _DiceRollerState extends State<DiceRoller>{
-  var activeDiceImage = 'assets/images/dice-3.png';
-    void rollDice(){
-      setState(() {
-        activeDiceImage = 'assets/images/dice-5.png';
-      });
-    }
+class _DiceRollerState extends State<DiceRoller> {
+  var currentDiceRoll = 3;
+  void rollDice() {
+    setState(() {
+      currentDiceRoll = Random().nextInt(6) + 1;
+    });
+  }
+
   @override
-  Widget build(context){
+  Widget build(context) {
     return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(
-              activeDiceImage,
-              width: 200,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Image.asset(
+          'assets/images/dice-$currentDiceRoll.png',
+          width: 200,
+        ),
+        TextButton(
+          onPressed: rollDice,
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.only(top: 20),
+            foregroundColor: Colors.white,
+            textStyle: const TextStyle(
+              fontSize: 28,
             ),
-            TextButton(
-              onPressed: rollDice,
-              style: TextButton.styleFrom(
-                  padding: EdgeInsets.only(top:20),
-                  foregroundColor: Colors.white,
-                  textStyle: const TextStyle(
-                    fontSize:28,
-                  ),
-                ),
-              child: Text(
-                "Roll the die",
-              ),
-            ),
-          ],
-        );
-    
+          ),
+          child: Text(
+            "Roll the die",
+          ),
+        ),
+      ],
+    );
   }
 }
